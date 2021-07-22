@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
+import com.enigmacamp.mysimplenavigation.databinding.FragmentHomeBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +23,7 @@ class HomeFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var binding: FragmentHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +44,28 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.apply {
+            profileButton.setOnClickListener {
+                Navigation.findNavController(view)
+                    .navigate(R.id.action_homeFragment_to_profileFragment)
+            }
+
+            transactionButton.setOnClickListener {
+                Navigation.findNavController(view)
+                    .navigate(R.id.action_homeFragment_to_transactionFragment)
+            }
+
+            aboutUsButton.setOnClickListener {
+                Navigation.findNavController(view)
+                    .navigate(R.id.action_homeFragment_to_aboutUsFragment)
+            }
+        }
     }
 
     companion object {
