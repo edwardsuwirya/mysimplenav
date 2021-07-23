@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/splashFragment"
-        android:name="com.enigmacamp.mysimplenavigation.SplashFragment"
+        android:name="com.enigmacamp.mysimplenavigation.ui.splash.SplashFragment"
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" >
         <action
@@ -18,7 +18,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.enigmacamp.mysimplenavigation.LoginFragment"
+        android:name="com.enigmacamp.mysimplenavigation.ui.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -27,7 +27,7 @@
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.enigmacamp.mysimplenavigation.HomeFragment"
+        android:name="com.enigmacamp.mysimplenavigation.ui.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -39,24 +39,23 @@
         <action
             android:id="@+id/action_homeFragment_to_aboutUsFragment"
             app:destination="@id/aboutUsFragment" />
+        <argument
+            android:name="userName"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/transactionFragment"
-        android:name="com.enigmacamp.mysimplenavigation.TransactionFragment"
+        android:name="com.enigmacamp.mysimplenavigation.ui.transaction.TransactionFragment"
         android:label="fragment_transaction"
         tools:layout="@layout/fragment_transaction" />
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.enigmacamp.mysimplenavigation.ProfileFragment"
+        android:name="com.enigmacamp.mysimplenavigation.ui.profile.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/aboutUsFragment"
-        android:name="com.enigmacamp.mysimplenavigation.AboutUsFragment"
+        android:name="com.enigmacamp.mysimplenavigation.ui.aboutUs.AboutUsFragment"
         android:label="fragment_about_us"
-        tools:layout="@layout/fragment_about_us" >
-        <action
-            android:id="@+id/action_aboutUsFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_about_us" />
 </navigation>

@@ -1,4 +1,4 @@
-package com.enigmacamp.mysimplenavigation
+package com.enigmacamp.mysimplenavigation.ui.transaction
 
 import android.os.Bundle
 import android.util.Log
@@ -6,36 +6,49 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
-import androidx.navigation.NavOptions
-import androidx.navigation.Navigation
+import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import com.enigmacamp.mysimplenavigation.ui.NavigationCommand
 import com.enigmacamp.mysimplenavigation.databinding.FragmentTransactionBinding
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [TransactionFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class TransactionFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
     private lateinit var binding: FragmentTransactionBinding
+    private lateinit var viewModel: TransactionFragmentViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
         Log.d("FragmentTransaction", "onCreate: ")
+        initViewModel()
+        requireActivity().onBackPressedDispatcher.addCallback(this,
+            object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    Log.d("FragmentTransaction", "onBackPressed: ")
+                    viewModel.doExit()
+                }
+            })
+    }
+
+    private fun initViewModel() {
+        viewModel = ViewModelProvider(this).get(TransactionFragmentViewModel::class.java)
+    }
+
+    private fun subscriber() {
+        viewModel.navigationCommandLiveData.observe(viewLifecycleOwner) {
+            when (it) {
+                is NavigationCommand.To -> findNavController().navigate(it.directions)
+                is NavigationCommand.Back -> findNavController().popBackStack()
+                is NavigationCommand.BackTo -> findNavController().popBackStack(
+                    it.destinationId,
+                    true
+                )
+                else -> {
+                }
+            }
+        }
     }
 
     override fun onDestroy() {
@@ -54,32 +67,19 @@ class TransactionFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        subscriber()
         binding.apply {
             signOutTransactionbutton.setOnClickListener {
                 setFragmentResult("INFO", bundleOf("username" to "edi"))
-                Navigation.findNavController(view).popBackStack(R.id.loginFragment, false)
+                viewModel.doSignOut()
 //                Navigation.findNavController(view).navigateUp()
             }
         }
     }
 
     companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment TransactionFragment.
-         */
-        // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            TransactionFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+        fun newInstance() =
+            TransactionFragment()
     }
 }
