@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import com.enigmacamp.mysimplenavigation.databinding.FragmentTransactionBinding
@@ -54,7 +56,8 @@ class TransactionFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.apply {
             signOutTransactionbutton.setOnClickListener {
-                Navigation.findNavController(view).popBackStack(R.id.loginFragment,false)
+                setFragmentResult("INFO", bundleOf("username" to "edi"))
+                Navigation.findNavController(view).popBackStack(R.id.loginFragment, false)
 //                Navigation.findNavController(view).navigateUp()
             }
         }

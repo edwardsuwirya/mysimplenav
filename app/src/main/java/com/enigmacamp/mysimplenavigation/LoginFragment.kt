@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.Navigation
 import com.enigmacamp.mysimplenavigation.databinding.FragmentLoginBinding
 
@@ -51,6 +52,9 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setFragmentResultListener("INFO") { requestKey, bundle ->
+            Log.d("Login", "onViewCreated: ${bundle.getString("username")}")
+        }
         binding.apply {
             loginButton.setOnClickListener {
                 Navigation.findNavController(view)
