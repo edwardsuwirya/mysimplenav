@@ -25,6 +25,9 @@ class LoginFragmentViewModel : ViewModel() {
     }
 
     fun doNavigateTermCondition() {
+        // Global action  ke TermConditionFragment di info_graph.xml, tidak bisa diakses dari nav_graph.xml
+        // intinya global action hanya bisa diakses di dalam 1 navigation graph, tidak bisa lintas navigation
+        // Makanya ada fitur yang dinamakan deep link
         val deepLink = InternalDeepLink.TERMCONDITION.toUri()
         _navigationCommandLiveData.postValue(NavigationCommand.DeepLink(deepLink))
     }
