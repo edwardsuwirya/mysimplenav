@@ -9,7 +9,7 @@
         android:id="@+id/splashFragment"
         android:name="com.enigmacamp.mysimplenavigation.ui.splash.SplashFragment"
         android:label="fragment_splash"
-        tools:layout="@layout/fragment_splash" >
+        tools:layout="@layout/fragment_splash">
         <action
             android:id="@+id/action_splashFragment_to_loginFragment"
             app:destination="@id/loginFragment"
@@ -20,7 +20,7 @@
         android:id="@+id/loginFragment"
         android:name="com.enigmacamp.mysimplenavigation.ui.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
@@ -29,7 +29,7 @@
         android:id="@+id/homeFragment"
         android:name="com.enigmacamp.mysimplenavigation.ui.home.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_transactionFragment"
             app:destination="@id/transactionFragment" />
@@ -58,4 +58,6 @@
         android:name="com.enigmacamp.mysimplenavigation.ui.aboutUs.AboutUsFragment"
         android:label="fragment_about_us"
         tools:layout="@layout/fragment_about_us" />
+
+    <include app:graph="@navigation/info_graph" />
 </navigation>

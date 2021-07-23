@@ -40,6 +40,7 @@ class LoginFragment : Fragment() {
                 is NavigationCommand.To -> findNavController().navigate(it.directions)
                 is NavigationCommand.Back -> findNavController().popBackStack()
                 is NavigationCommand.ToRoot -> requireActivity().finish()
+                is NavigationCommand.DeepLink -> findNavController().navigate(it.destinationDeep)
                 else -> {
                 }
             }
@@ -70,6 +71,9 @@ class LoginFragment : Fragment() {
         binding.apply {
             loginButton.setOnClickListener {
                 viewModel.doAuthenticate()
+            }
+            termConditionButton.setOnClickListener {
+                viewModel.doNavigateTermCondition()
             }
         }
     }
