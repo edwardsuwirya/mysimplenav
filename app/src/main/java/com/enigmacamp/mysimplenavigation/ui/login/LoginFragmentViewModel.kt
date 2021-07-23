@@ -17,9 +17,7 @@ class LoginFragmentViewModel : ViewModel() {
     fun doAuthenticate() {
         _navigationCommandLiveData.postValue(
             NavigationCommand.To(
-                LoginFragmentDirections.actionLoginFragmentToHomeFragment(
-                    "edi"
-                )
+                LoginFragmentDirections.actionLoginFragmentToHomeFragment("edi")
             )
         )
     }
