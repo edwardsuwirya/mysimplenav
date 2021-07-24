@@ -7,5 +7,7 @@
     <string name="home_fragment">Home Screen</string>
     <string name="transaction_fragment">Transaction Screen</string>
     <string name="profile_fragment">Profile Screen</string>
+    <string name="title_transactionfeature">Transaction Module</string>
+    <string name="title_infofeature">Info Module</string>
 
 </resources>

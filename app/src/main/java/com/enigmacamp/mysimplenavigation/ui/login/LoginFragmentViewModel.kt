@@ -3,12 +3,12 @@ package com.enigmacamp.mysimplenavigation.ui.login
 import androidx.core.net.toUri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.enigmacamp.mysimplenavigation.ui.InternalDeepLink
-import com.enigmacamp.mysimplenavigation.ui.NavigationCommand
-import com.enigmacamp.mysimplenavigation.util.SingleLiveEvent
+import com.enigmacamp.navigation.InternalDeepLink
+import com.enigmacamp.navigation.NavigationCommand
 
 class LoginFragmentViewModel : ViewModel() {
-    private var _navigationCommandLiveData = SingleLiveEvent<NavigationCommand>()
+    private var _navigationCommandLiveData =
+        com.enigmacamp.coremodule.livedata.SingleLiveEvent<NavigationCommand>()
 
     val navigationCommandLiveData: LiveData<NavigationCommand>
         get() = _navigationCommandLiveData
@@ -27,10 +27,14 @@ class LoginFragmentViewModel : ViewModel() {
         // intinya global action hanya bisa diakses di dalam 1 navigation graph, tidak bisa lintas navigation
         // Makanya ada fitur yang dinamakan deep link
         val deepLink = InternalDeepLink.TERMCONDITION.toUri()
-        _navigationCommandLiveData.postValue(NavigationCommand.DeepLink(deepLink))
+        _navigationCommandLiveData.postValue(
+            com.enigmacamp.navigation.NavigationCommand.DeepLink(
+                deepLink
+            )
+        )
     }
 
     fun doExit() {
-        _navigationCommandLiveData.postValue(NavigationCommand.ToRoot)
+        _navigationCommandLiveData.postValue(com.enigmacamp.navigation.NavigationCommand.ToRoot)
     }
 }

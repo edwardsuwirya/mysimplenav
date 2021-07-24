@@ -2,8 +2,8 @@ package com.enigmacamp.mysimplenavigation.ui.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.enigmacamp.mysimplenavigation.ui.NavigationCommand
-import com.enigmacamp.mysimplenavigation.util.SingleLiveEvent
+import com.enigmacamp.coremodule.livedata.SingleLiveEvent
+import com.enigmacamp.navigation.NavigationCommand
 
 class HomeFragmentViewModel : ViewModel() {
     private var _navigationCommandLiveData = SingleLiveEvent<NavigationCommand>()
@@ -21,7 +21,7 @@ class HomeFragmentViewModel : ViewModel() {
     }
 
     fun doNavigateTransaction() {
-        _navigationCommandLiveData.postValue(NavigationCommand.To(  HomeFragmentDirections.actionHomeFragmentToTransactionFragment()))
+        _navigationCommandLiveData.postValue(NavigationCommand.To(  HomeFragmentDirections.actionHomeFragmentToTransactionGraph()))
     }
 
     fun doExit() {

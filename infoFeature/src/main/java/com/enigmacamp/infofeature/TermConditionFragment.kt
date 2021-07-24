@@ -1,4 +1,4 @@
-package com.enigmacamp.mysimplenavigation.ui.home
+package com.enigmacamp.infofeature
 
 import android.os.Bundle
 import android.util.Log
@@ -9,36 +9,38 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
-import com.enigmacamp.mysimplenavigation.databinding.FragmentHomeBinding
+import com.enigmacamp.navigation.NavigationCommand
+import com.enigmacamp.infofeature.databinding.FragmentTermConditionBinding
 
-class HomeFragment : Fragment() {
-    private lateinit var binding: FragmentHomeBinding
-    private lateinit var viewModel: HomeFragmentViewModel
-    private val args: HomeFragmentArgs by navArgs()
+
+class TermConditionFragment : Fragment() {
+    private lateinit var binding: FragmentTermConditionBinding
+    private lateinit var viewModel: TermConditionFragmentViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Log.d("FragmentHome", "onCreate: ")
         initViewModel()
+        Log.d("FragmentTermCondition", "onCreate: ")
         requireActivity().onBackPressedDispatcher.addCallback(this,
             object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
-                    Log.d("FragmentHome", "onBackPressed: ")
+                    Log.d("FragmentTermCondition", "onBackPressed: ")
                     viewModel.doExit()
                 }
             })
     }
 
+
     private fun initViewModel() {
-        viewModel = ViewModelProvider(this).get(HomeFragmentViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(TermConditionFragmentViewModel::class.java)
     }
 
     private fun subscriber() {
         viewModel.navigationCommandLiveData.observe(viewLifecycleOwner) {
             when (it) {
-                is com.enigmacamp.navigation.NavigationCommand.To -> findNavController().navigate(it.directions)
-                is com.enigmacamp.navigation.NavigationCommand.Back -> findNavController().popBackStack()
+                is NavigationCommand.To -> findNavController().navigate(it.directions)
+                is NavigationCommand.Back -> findNavController().popBackStack()
+                is NavigationCommand.ToRoot -> requireActivity().finish()
                 else -> {
                 }
             }
@@ -47,40 +49,29 @@ class HomeFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.d("FragmentHome", "onDestroy: ")
+        Log.d("FragmentTermCondition", "onDestroy: ")
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
+        binding = FragmentTermConditionBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         subscriber()
-        Log.d("FragmentHome", "onViewCreated: ${args.userName}")
         binding.apply {
-            textView2.text = "Home Screen ${args.userName}"
-            profileButton.setOnClickListener {
-                viewModel.doNavigateProfile()
-            }
-
-            transactionButton.setOnClickListener {
-                viewModel.doNavigateTransaction()
-            }
-
-            aboutUsButton.setOnClickListener {
-                viewModel.doNavigateAboutUs()
+            signOutButton.setOnClickListener {
+                viewModel.doExit()
             }
         }
     }
 
     companion object {
         @JvmStatic
-        fun newInstance() = HomeFragment()
+        fun newInstance() = TermConditionFragment()
     }
 }

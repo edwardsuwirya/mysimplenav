@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.enigmacamp.mysimplenavigation.databinding.FragmentAboutUsBinding
-import com.enigmacamp.mysimplenavigation.ui.NavigationCommand
+import com.enigmacamp.navigation.NavigationCommand
 
 class AboutUsFragment : Fragment() {
     private lateinit var binding: FragmentAboutUsBinding
@@ -36,9 +36,9 @@ class AboutUsFragment : Fragment() {
     private fun subscriber() {
         viewModel.navigationCommandLiveData.observe(viewLifecycleOwner) {
             when (it) {
-                is NavigationCommand.To -> findNavController().navigate(it.directions)
-                is NavigationCommand.Back -> findNavController().popBackStack()
-                is NavigationCommand.BackTo -> findNavController().popBackStack(
+                is com.enigmacamp.navigation.NavigationCommand.To -> findNavController().navigate(it.directions)
+                is com.enigmacamp.navigation.NavigationCommand.Back -> findNavController().popBackStack()
+                is com.enigmacamp.navigation.NavigationCommand.BackTo -> findNavController().popBackStack(
                     it.destinationId,
                     true
                 )
